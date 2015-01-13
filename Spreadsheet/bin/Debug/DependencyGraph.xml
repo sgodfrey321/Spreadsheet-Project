@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DependencyGraph</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "T:SpreadsheetUtilities.DependencyGraph" -->
+        <!-- Badly formed XML comment ignored for member "F:SpreadsheetUtilities.DependencyGraph.graphDependants" -->
+        <!-- Badly formed XML comment ignored for member "F:SpreadsheetUtilities.DependencyGraph.graphDependees" -->
+        <member name="M:SpreadsheetUtilities.DependencyGraph.#ctor">
+            <summary>
+            Creates an empty DependencyGraph.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.HasDependents(System.String)">
+            <summary>
+            Reports whether dependents(s) is non-empty. Simple check, we just check if there are any values
+            in the HashSet of graphDependants(s)
+            </summary>
+            <param name="s">The key value to search for</param>
+            <returns>Returns if s is dependant on any values</returns>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.HasDependees(System.String)">
+            <summary>
+            Reports whether dependees(s) is non-empty. We just check the other stack now, we check
+            if there are an dependants in the HashSet of graphDependees(s)
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.GetDependents(System.String)">
+            <summary>
+            Enumerates dependents(s). We return a list of all the dependants of s, that is we
+            return a list of all the values of graphDependants[s].  We cast the HashSet to a list so we get
+            something we can iterate through
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.GetDependees(System.String)">
+            <summary>
+            Enumerates dependees(s). We return a list of all the dependees of s, that is we return a list
+            of all the values of graphDependees[s]
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.AddDependency(System.String,System.String)">
+            <summary>
+            Adds the ordered pair (s,t), if it doesn't exist. We need to make sure that we keep our 2 
+            dictionaries the same so we have to add the same pair to both dictionaries. 
+            To add to the first
+            we just simple check to see if s is there and if it is we add t to its HashSet. If s is not
+            there we make a new HashSet for it and add t to that new HashSet.
+            To add to the second
+            we just do the same thing except we switch the variables around. Since s is the dependee of t
+            we need to check that t has a HashSet, if it does we just add s to it. And if not we just 
+            create a new HashSet and add s to the new HashSet.
+            </summary>
+            <param name="s">The dependee to be added</param>
+            <param name="t">The dependant to be added</param>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.RemoveDependency(System.String,System.String)">
+            <summary>
+            Removes the ordered pair (s,t), if it exists. Remember that we need to change both dictionaries
+            </summary>
+            <param name="s">The dependee to be removed</param>
+            <param name="t">The dependant to be removed</param>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.ReplaceDependents(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all existing ordered pairs of the form (s,r).  Then, for each
+            t in newDependents, adds the ordered pair (s,t).
+            </summary>
+            <param name="s">The dependee for which we are replacing the dependants</param>
+            <param name="newDependents">The list of new dependants to replace the old with</param>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.ReplaceDependees(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all existing ordered pairs of the form (r,s).  Then, for each 
+            t in newDependees, adds the ordered pair (t,s).
+            </summary>
+            <param name="s">The dependant we are going to give new dependees</param>
+            <param name="newDependees">This list of the new dependees</param>
+        </member>
+        <member name="P:SpreadsheetUtilities.DependencyGraph.Size">
+            <summary>
+            The number of ordered pairs in the DependencyGraph. We can figure this out by just by returning the graphDependee.Count() because
+            the graphDependee will have all the dependee elements and will 'hold' all the ordered pairs.
+            </summary>
+        </member>
+        <member name="P:SpreadsheetUtilities.DependencyGraph.Item(System.String)">
+            <summary>
+            The size of dependees(s).
+            This property is an example of an indexer.  If dg is a DependencyGraph, you would
+            invoke it like this:
+            dg["a"]
+            It should return the size of dependees("a"). All we need to do is return the count of
+            all the dependents of a
+            </summary>
+        </member>
+    </members>
+</doc>
